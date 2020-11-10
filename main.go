@@ -84,7 +84,12 @@ func main() {
 	//fmt.Println(map1["b"])
 
 	//test.PipeCmd()
-	OpenAndLook()
+	//OpenAndLook()
+	var str="abc"
+	var runes=[]rune(str)
+	for _,item:=range runes{
+		fmt.Println(item>'a')
+	}
 
 }
 
