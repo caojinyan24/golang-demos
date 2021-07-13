@@ -2,10 +2,10 @@ package basic
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/driver/mysql"
 )
 
 type Product struct {
@@ -17,7 +17,7 @@ type Product struct {
 var db *gorm.DB
 
 func initDb() {
-	dbGorm, err := gorm.Open("mysql", "username:password@tcp(host:port)/database?charset=utf8&parseTime=True&loc=Local")
+	dbGorm, err := gorm.Open(mysql.Open("username:password@tcp(host:port)/database?charset=utf8&parseTime=True&loc=Local"), &gorm.Config{})
 	if err != nil {
 		fmt.Println(err)
 		panic(fmt.Sprintf("Init db: connect db error, %v", err))
@@ -26,7 +26,7 @@ func initDb() {
 }
 func TestGormConnect() {
 	initDb()
-	defer db.Close()
+	defer db.Rollback()
 	tx := db.Begin()
 	//err := Db.CreateTable(&Product{Code: "L1212", Price: 1000}).Error
 	err := tx.Table("products").Where("code=1").Update("code", "abc1").Error
@@ -55,7 +55,7 @@ type ApplyInfo struct {
 func TestScan() {
 	initDb()
 	var data = make([]ApplyInfo, 0)
-	var count = 0
+	var count int64 = 0
 	conn := db.Table("apply_info").Select("apply_info.id as id,apply_info.apply_user as apply_user,b.audit_status as audit_status,apply_info.audit_user as audit_user,apply_info.app_id as app_id,apply_info.apply_service_name as apply_service_name,b.created_at as created_at,apply_info.apply_desc as apply_desc").Joins("inner join audit_history b on apply_info.id=b.apply_id").Where("b.audit_user=?", "caojinyan")
 	conn.Count(&count)
 	conn = conn.Offset(0).Limit(10)
