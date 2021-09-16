@@ -1,9 +1,33 @@
-package basic
+package test
 
 import (
+	"errors"
 	"fmt"
-	"github.com/pkg/errors"
+	"testing"
 )
+
+func Defer() (result string) {
+	result = "init"
+	defer func() {
+		result = "defer"
+	}()
+	return result + " added"
+}
+func DeferWithParam() string {
+	var result = "init"
+	defer func() {
+		result = "defer"
+	}()
+	return result + " added"
+}
+func TestDefer(t *testing.T) {
+	println(Defer())
+	println(DeferWithParam())
+
+}
+
+
+
 
 const PLATFORM_APP_IDENTITY_TYPE_UID = 10
 

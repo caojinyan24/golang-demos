@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	"github.com/caojinyan24/go-demo/basic"
+	"github.com/caojinyan24/golang-demos/basic"
 	"sort"
 )
 

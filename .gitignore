@@ -9,7 +9,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
+.idea
 # Generated files
 .idea/**/contentModel.xml
 
@@ -117,3 +117,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+/.idea/
+/.idea/
