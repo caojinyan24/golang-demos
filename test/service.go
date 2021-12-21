@@ -2,13 +2,8 @@ package test
 
 import (
 	"fmt"
-	"github.com/caojinyan24/golang-demos/basic"
 	"sort"
 )
-
-func TestParamName() {
-	fmt.Println(basic.PLATFORM_APP_IDENTITY_TYPE_UID)
-}
 
 type Sequence []int
 

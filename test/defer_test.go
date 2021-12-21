@@ -9,9 +9,20 @@ import (
 func Defer() (result string) {
 	result = "init"
 	defer func() {
-		result = "defer"
+		if result == "" {
+			result = "defer"
+		}
 	}()
-	return result + " added"
+	return "add " + result
+}
+func DeferBlank() (result string) {
+	result = "init"
+	defer func() {
+		fmt.Println(result)
+		result = "defer"
+		fmt.Println(result)
+	}()
+	return "add " + result
 }
 func DeferWithParam() string {
 	var result = "init"
@@ -21,13 +32,11 @@ func DeferWithParam() string {
 	return result + " added"
 }
 func TestDefer(t *testing.T) {
-	println(Defer())
-	println(DeferWithParam())
+	//println(Defer())
+	println(DeferBlank())
+	//println(DeferWithParam())
 
 }
-
-
-
 
 const PLATFORM_APP_IDENTITY_TYPE_UID = 10
 
